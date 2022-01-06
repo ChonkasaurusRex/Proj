@@ -147,7 +147,6 @@ void Timer(int x, int y, int i, unsigned char X[][80]) //Timer
 	X[1][6] = y;
 	X[1][7] = x;
 	X[1][8] = i;
-
 	while (y != 47)
 	{
 		if (i != 48)
@@ -181,7 +180,6 @@ void Timer(int x, int y, int i, unsigned char X[][80]) //Timer
 			X[1][8] = 48;
 			break;
 		}
-		Disp(X);
 	}
 }
 void SetEnmy_1(unsigned char X[][80], int rEnmy, int cEnmy)
