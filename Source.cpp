@@ -2,29 +2,42 @@
 #include <Windows.h>
 #include <conio.h>
 using namespace std;
-void Disp(unsigned char X[][80]) //Display
+//Display
+void Disp(unsigned char X[][120], int& cs, int& ck)
 {
 	system("cls");
 	for (int r = 0; r < 24; r++)
+	{
+		for (int c = cs; c < ck; c++)
+		{
+			cout << X[r][c];
+		}
+	}
+	Sleep(10);
+}
+void Disp_2(unsigned char X[][120])
+{
+	system("cls");
+	for (int r = 24; r < 48; r++)
 	{
 		for (int c = 0; c < 80; c++)
 		{
 			cout << X[r][c];
 		}
 	}
-	Sleep(100);
+	Sleep(10);
 }
-void Lo7aFania(unsigned char X[][80])
+void Lo7aFania(unsigned char X[][120])
 {
-	//Borders
-	for (int r = 0; r < 24; r++)
+	//Border Disp 1
+	for (int r = 0; r < 48; r++)
 	{
-		for (int c = 0; c < 80; c++)
+		for (int c = 0; c < 120; c++)
 		{
 			X[r][c] = ' ';
 		}
 	}
-	for (int c = 1; c < 80 - 1; c++)
+	for (int c = 0; c < 120 - 1; c++)
 	{
 		X[0][c] = 205;
 		X[23][c] = 205;
@@ -39,22 +52,36 @@ void Lo7aFania(unsigned char X[][80])
 	X[23][0] = 200;
 	X[23][79] = 188;
 
-	//Set Timer 
-	int y = 48;
-	int x = 48;
+	//Border Disp 2
+	for (int c = 0; c < 120 - 1; c++)
+	{
+		X[24][c] = 205;
+		X[47][c] = 205;
+	}
+	X[24][0] = 201;
+	for (int r = 25; r < 48 - 1; r++)
+	{
+		X[r][0] = 186;
+		X[r][80 - 1] = 186;
+	}
+	X[24][80 - 1] = 187;
+	X[47][0] = 200;
+	X[47][79] = 188;
+
+	//Set Score
 	X[1][1] = 'S';
 	X[1][2] = 'C';
 	X[1][3] = 'R';
 	X[1][4] = ':';
-	X[1][5] = x;
-	X[1][6] = y;
 
-	//Timer Box
+	X[25][1] = 'S';
+	X[25][2] = 'C';
+	X[25][3] = 'R';
+	X[25][4] = ':';
+
+	//Score Box
 	X[0][7] = 203;
-	for (int r = 1; r < 2; r++)
-	{
-		X[r][7] = 186;
-	}
+	X[1][7] = 186;
 	X[2][7] = 188;
 	for (int c = 6; c > 0; c--)
 	{
@@ -62,8 +89,14 @@ void Lo7aFania(unsigned char X[][80])
 	}
 	X[2][0] = 204;
 
-	//Object
-	X[3][70] = 157;
+	X[24][7] = 203;
+	X[25][7] = 186;
+	X[26][7] = 188;
+	for (int c = 6; c > 0; c--)
+	{
+		X[26][c] = 205;
+	}
+	X[26][0] = 204;
 
 	//Platforms
 	X[20][0] = 204;
@@ -72,464 +105,246 @@ void Lo7aFania(unsigned char X[][80])
 		X[20][c] = 205;
 	}
 	X[20][12] = 187;
-	for (int r = 21; r < 22; r++)
-	{
-		X[r][12] = 186;
-	}
+	X[21][12] = 186;
 	X[22][12] = 200;
-	for (int c = 13; c < 32; c++)
+	for (int c = 13; c < 33; c++)
 	{
 		X[22][c] = 205;
 	}
-	X[22][32] = 188;
-	X[21][32] = 201;
-	for (int c = 33; c < 36; c++)
-	{
-		X[21][c] = 205;
-	}
-	X[21][36] = 188;
-	X[20][36] = 201;
-	for (int c = 37; c < 40; c++)
+	X[22][33] = 188;
+	X[21][33] = 201;
+	X[21][34] = 205;
+	X[21][35] = 188;
+	X[20][35] = 201;
+	for (int c = 36; c < 40; c++)
 	{
 		X[20][c] = 205;
 	}
-	X[20][40] = 188;
-	X[19][40] = 201;
-	for (int c = 41; c < 44; c++)
-	{
-		X[19][c] = 205;
-	}
-	X[19][44] = 187;
-	for (int r = 20; r < 23; r++)
-	{
-		X[r][44] = 186;
-	}
-	X[23][44] = 202;
-	X[17][38] = 187;
-	for (int c = 37; c > 29; c--)
-	{
-		X[17][c] = 205;
-	}
-	X[17][29] = 201;
-	X[18][29] = 188;
-	for (int c = 28; c > 10; c--)
-	{
-		X[18][c] = 205;
-	}
-	X[18][10] = 200;
-	X[17][10] = 187;
-	for (int c = 9; c > 5; c--)
-	{
-		X[17][c] = 205;
-	}
-	X[17][5] = 200;
-	X[16][5] = 187;
-	for (int c = 4; c > 2; c--)
-	{
-		X[16][c] = 205;
-	}
-	X[16][2] = 200;
-	for (int r = 15; r > 11; r--)
-	{
-		X[r][2] = 186;
-	}
-	X[11][2] = 187;
-	X[11][1] = 205;
-	X[11][0] = 201;
-	X[10][0] = 32;
-	X[9][0] = 200;
-	for (int c = 1; c < 15; c++)
-	{
-		X[9][c] = 205;
-	}
-	X[9][15] = 188;
-	for (int r = 8; r > 5; r--)
-	{
-		X[r][15] = 186;
-	}
-	X[5][15] = 187;
-	X[5][14] = 205;
-	X[5][13] = 201;
-	for (int r = 6; r < 8; r++)
-	{
-		X[r][13] = 186;
-	}
-	X[8][13] = 188;
-	for (int c = 12; c > 4; c--)
-	{
-		X[8][c] = 205;
-	}
-	X[8][4] = 200;
-	for (int r = 7; r > 3; r--)
-	{
-		X[r][4] = 186;
-	}
-	X[3][4] = 201;
-	for (int c = 5; c < 20; c++)
-	{
-		X[3][c] = 205;
-	}
-	X[3][20] = 187;
-	for (int r = 4; r < 14; r++)
-	{
-		X[r][20] = 186;
-	}
-	X[14][20] = 188;
-	for (int c = 19; c > 17; c--)
-	{
-		X[14][c] = 205;
-	}
-	X[14][17] = 200;
-	for (int r = 13; r > 10; r--)
-	{
-		X[r][17] = 186;
-	}
-	X[10][17] = 187;
-	for (int c = 16; c > 8; c--)
-	{
-		X[10][c] = 205;
-	}
-	X[10][8] = 201;
-	for (int r = 11; r < 16; r++)
-	{
-		X[r][8] = 186;
-	}
-	X[16][8] = 200;
-	for (int c = 9; c < 40; c++)
-	{
-		X[16][c] = 205;
-	}
-	X[16][40] = 185;
-	for (int r = 17; r < 18; r++)
-	{
-		X[r][40] = 186;
-	}
-	X[18][40] = 185;
-	X[19][40] = 204;
-	X[18][39] = 205;
-	X[18][38] = 200;
-	for (int r = 15; r > 11; r--)
-	{
-		X[r][40] = 186;
-	}
-	X[11][40] = 201;
-	for (int c = 41; c < 45; c++)
-	{
-		X[11][c] = 205;
-	}
-	X[11][45] = 185;
-	for (int r = 12; r < 17; r++)
-	{
-		X[r][45] = 186;
-	}
-	X[17][45] = 200;
-	for (int c = 46; c < 50; c++)
-	{
-		X[17][c] = 205;
-	}
-	X[17][50] = 203;
-	for (int r = 18; r < 23; r++)
-	{
-		X[r][50] = 186;
-	}
+	X[20][42] = 205;
+	X[20][43] = 187;
+	X[21][43] = 204;
+	X[22][43] = 186;
+	X[23][43] = 202;
+
+	X[20][50] = 201;
+	X[21][50] = 185;
+	X[22][50] = 186;
 	X[23][50] = 202;
-	for (int r = 10; r > 7; r--)
-	{
-		X[r][45] = 186;
-	}
-	X[7][45] = 187;
-	for (int c = 44; c > 37; c--)
-	{
-		X[7][c] = 205;
-	}
-	X[7][37] = 201;
-	for (int r = 8; r < 14; r++)
-	{
-		X[r][37] = 186;
-	}
-	X[14][37] = 188;
-	for (int c = 36; c > 25; c--)
-	{
-		X[14][c] = 205;
-	}
-	X[14][25] = 200;
-	X[13][25] = 201;
-	for (int c = 26; c < 34; c++)
-	{
-		X[13][c] = 205;
-	}
-	X[13][34] = 188;
-	for (int r = 12; r > 10; r--)
-	{
-		X[r][34] = 186;
-	}
-	X[10][34] = 187;
-	for (int c = 33; c > 25; c--)
-	{
-		X[10][c] = 205;
-	}
-	X[10][25] = 200;
-	for (int r = 9; r > 3; r--)
-	{
-		X[r][25] = 186;
-	}
-	X[3][25] = 201;
-	for (int c = 26; c < 55; c++)
-	{
-		X[3][c] = 205;
-	}
-	X[3][55] = 187;
-	for (int r = 4; r < 17; r++)
-	{
-		X[r][55] = 186;
-	}
-	X[17][55] = 206;
-	for (int c = 54; c > 50; c--)
-	{
-		X[17][c] = 205;
-	}
-	X[23][50] = 200;
-	for (int c = 49; c > 44; c--)
-	{
-		X[23][c] = 32;
-	}
-	X[23][44] = 188;
-	for (int r = 18; r < 21; r++)
-	{
-		X[r][55] = 186;
-	}
-	X[21][55] = 200;
-	for (int c = 56; c < 70; c++)
+	for (int c = 44; c < 50; c++)
 	{
 		X[21][c] = 205;
 	}
-	X[21][70] = 188;
-	for (int r = 20; r > 17; r--)
-	{
-		X[r][70] = 186;
-	}
-	X[17][70] = 201;
-	for (int c = 71; c < 79; c++)
-	{
-		X[17][c] = 205;
-	}
-	X[17][79] = 187;
-	for (int c = 56; c < 62; c++)
-	{
-		X[17][c] = 205;
-	}
-	X[17][62] = 188;
-	for (int r = 16; r > 13; r--)
-	{
-		X[r][62] = 186;
-	}
-	X[13][62] = 204;
-	for (int c = 63; c < 79; c++)
-	{
-		X[13][c] = 205;
-	}
-	X[13][79] = 185;
-	for (int r = 14; r < 17; r++)
-	{
-		X[r][79] = 32;
-	}
-	for (int r = 12; r > 8; r--)
-	{
-		X[r][62] = 186;
-	}
-	X[8][62] = 204;
-	for (int c = 63; c < 79; c++)
-	{
-		X[8][c] = 205;
-	}
-	X[8][79] = 185;
-	for (int r = 9; r < 13; r++)
-	{
-		X[r][79] = 32;
-	}
-	for (int r = 7; r > 3; r--)
-	{
-		X[r][62] = 186;
-	}
-	X[3][62] = 201;
-	for (int c = 63; c < 79; c++)
-	{
-		X[3][c] = 205;
-	}
-	X[3][79] = 188;
-	for (int r = 4; r < 8; r++)
-	{
-		X[r][79] = 32;
-	}
 }
-int MoveHero_1(int& rHero, int& cHero, char ch, int x, int y, int f, unsigned char X[][80], int& robj, int& cobj)
+int SetEl1(unsigned char X[][120], int& rHero, int& cHero, int& t, int& rEl, int& cEl)
 {
-	f = 0;
-	if (ch == 'w')
+	X[rEl][cEl] = 287;
+	if (rHero == rEl && cHero == cEl)
 	{
-		rHero--;
-	}
-	if (ch == 's')
-	{
-		rHero++;
-	}
-	if (ch == 'a')
-	{
-		cHero--;
-	}
-	if (ch == 'd')
-	{
-		cHero++;
-	}
-	if (f == 0)
-	{
-		x = 48;
-		y = 48;
-	}
-	if (f == 1)
-	{
-		x = 48;
-		y = 49;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 2)
-	{
-		x = 48;
-		y = 50;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 3)
-	{
-		x = 48;
-		y = 51;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 4)
-	{
-		x = 48;
-		y = 52;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 5)
-	{
-		x = 48;
-		y = 52;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 6)
-	{
-		x = 48;
-		y = 53;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 7)
-	{
-		x = 48;
-		y = 54;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 8)
-	{
-		x = 48;
-		y = 55;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 9)
-	{
-		x = 48;
-		y = 56;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	if (f == 10)
-	{
-		x = 49;
-		y = 48;
-		robj += 10;
-		cobj -= 15;
-		return robj;
-		return cobj;
-	}
-	X[1][5] = x;
-	X[1][6] = y;
-	if (rHero == robj && cHero == cobj)
-	{
-		f++;
-		return f;
-		return robj;
-		return cobj;
-
+		rEl = 26;
+		cEl = 30;
+		t = 1;
+		return t;
 	}
 }
-void SetEnmy_1(unsigned char X[][80], int rEnmy, int cEnmy)
+void SetLad(unsigned char X[][120])
 {
-	X[rEnmy][cEnmy] = 287;
-	X[rEnmy + 1][cEnmy] = 220;
+	X[20][40] = 178;
+	X[20][41] = 178;
+	for (int r = 19; r > 16; r--)
+	{
+		X[r][40] = 178;
+	}
+	for (int r = 19; r > 16; r--)
+	{
+		X[r][41] = 178;
+	}
+	X[16][40] = 240;
+	X[16][41] = 240;
 }
-void SetEnmy_2(unsigned char X[][80], int rEnmy, int cEnmy)
+void SetScr(unsigned char X[][120], int& cobj)
 {
-	X[rEnmy][cEnmy] = 287;
-	X[rEnmy + 1][cEnmy] = 220;
+	int i;
+	int f = 48;
+	int y[10];
+	int g = 48;
+	for (i = 0; i < 10; i++)
+	{
+		y[i] = g;
+		g++;
+	}
+	if (cobj == 11)
+	{
+		f = y[1];
+	}
+	if (cobj == 22)
+	{
+		f = y[2];
+	}
+	if (cobj == 72)
+	{
+		f = y[3];
+	}
+	if (cobj == 20)
+	{
+		f = y[4];
+	}
+	if (cobj == 29)
+	{
+		f = y[5];
+	}
+	X[1][6] = f;
+	X[1][5] = 48;
+	X[25][6] = f;
+	X[25][5] = 48;
 }
-void SetHero_1(unsigned char X[][80], int rHero, int cHero)
+//Set Enemies
+void SetEnmy_1(unsigned char X[][120], int rEnmy, int cEnmy, int& rHero, int& cHero)
 {
-	X[rHero][cHero] = 79;
+	X[rEnmy][cEnmy] = 179;
+	X[rEnmy][cEnmy + 1] = 196;
+	X[rEnmy][cEnmy - 1] = 196;
+	X[rEnmy - 1][cEnmy] = 220;
+	X[rEnmy + 1][cEnmy - 1] = 47;
+	X[rEnmy + 1][cEnmy + 1] = 92;
+	if (rHero == rEnmy && cHero == cEnmy )
+	{
+		rHero = 19;
+		cHero = 4;
+	}
 }
-void SetObj(unsigned char X[][80], int robj, int cobj)
+void SetEnmy_2(unsigned char X[][120], int rEnmy, int cEnmy, int& rHero, int& cHero)
 {
-	X[robj][cobj] = 35;
+	X[rEnmy - 1][cEnmy] = 220;
+	X[rEnmy][cEnmy] = 179;
+	X[rEnmy][cEnmy + 1] = 196;
+	X[rEnmy][cEnmy - 1] = 196;
+	X[rEnmy + 1][cEnmy + 1] = 92;
+	X[rEnmy + 1][cEnmy - 1] = 47;
+	if (rHero == rEnmy && cHero == cEnmy)
+	{
+		rHero = 20;
+		cHero = 4;
+	}
 }
-void MoveEnmy_1(int& rEnmy, int& cEnmy, int& dir)
+void SetEnmy_3(unsigned char X[][120], int rEnmy, int cEnmy, int& rHero, int& cHero)
+{
+	X[rEnmy - 1][cEnmy] = 220;
+	X[rEnmy][cEnmy] = 179;
+	X[rEnmy][cEnmy + 1] = 196;
+	X[rEnmy][cEnmy - 1] = 196;
+	X[rEnmy + 1][cEnmy + 1] = 92;
+	X[rEnmy + 1][cEnmy - 1] = 47;
+	if (rHero == rEnmy && cHero == cEnmy)
+	{
+		rHero = 20;
+		cHero = 4;
+	}
+}
+void SetEnmy_4(unsigned char X[][120], int rEnmy, int cEnmy, int& rHero, int& cHero)
+{
+	X[rEnmy - 1][cEnmy] = 220;
+	X[rEnmy][cEnmy] = 179;
+	X[rEnmy][cEnmy + 1] = 196;
+	X[rEnmy][cEnmy - 1] = 196;
+	X[rEnmy + 1][cEnmy + 1] = 92;
+	X[rEnmy + 1][cEnmy - 1] = 47;
+	if (rHero == rEnmy && cHero == cEnmy)
+	{
+		rHero = 20;
+		cHero = 4;
+	}
+}
+void SetEnmy_5(unsigned char X[][120], int rEnmy, int cEnmy, int& rHero, int& cHero)
+{
+	X[rEnmy - 1][cEnmy] = 220;
+	X[rEnmy][cEnmy] = 179;
+	X[rEnmy][cEnmy + 1] = 196;
+	X[rEnmy][cEnmy - 1] = 196;
+	X[rEnmy + 1][cEnmy + 1] = 92;
+	X[rEnmy + 1][cEnmy - 1] = 47;
+	if (rHero == rEnmy && cHero == cEnmy)
+	{
+		rHero = 20;
+		cHero = 4;
+	}
+}
+void SetEnmy_6(unsigned char X[][120], int rEnmy, int cEnmy, int& rHero, int& cHero)
+{
+	X[rEnmy - 1][cEnmy] = 220;
+	X[rEnmy][cEnmy] = 179;
+	X[rEnmy][cEnmy + 1] = 196;
+	X[rEnmy][cEnmy - 1] = 196;
+	X[rEnmy + 1][cEnmy + 1] = 92;
+	X[rEnmy + 1][cEnmy - 1] = 47;
+	if (rHero == rEnmy && cHero == cEnmy)
+	{
+		rHero = 20;
+		cHero = 4;
+	}
+}
+//Set Hero
+void SetHero_1(unsigned char X[][120], int rHero, int cHero)
+{
+	X[rHero][cHero] = 179;
+	X[rHero][cHero + 1] = 196;
+	X[rHero][cHero - 1] = 196;
+	X[rHero - 1][cHero] = 1;
+	X[rHero + 1][cHero - 1] = 47;
+	X[rHero + 1][cHero + 1] = 92;
+}
+void SetHero_2(unsigned char X[][120], int rHero2, int cHero2)
+{
+	X[rHero2][cHero2] = 179;
+	X[rHero2][cHero2 + 1] = 196;
+	X[rHero2][cHero2 - 1] = 196;
+	X[rHero2 - 1][cHero2] = 1;
+	X[rHero2 + 1][cHero2 - 1] = 47;
+	X[rHero2 + 1][cHero2 + 1] = 92;
+}
+//Set Object
+int SetObj(unsigned char X[][120], int& robj, int& cobj, int& rHero, int& cHero, int& t)
+{
+	X[robj][cobj] = 219;
+	if (rHero == robj && cHero == cobj && cobj == 70 && robj == 3)
+	{
+		cobj = 11;
+		robj = 9;
+	}
+	else if (rHero == robj && cHero == cobj && cobj == 11 && robj == 9)
+	{
+		cobj = 22;
+		robj = 22;
+	}
+	else if (rHero == robj && cHero == cobj && cobj == 22 && robj == 22)
+	{
+		cobj = 72;
+		robj = 17;
+	}
+	else if (rHero == robj && cHero == cobj && cobj == 72 && robj == 17)
+	{
+		cobj = 20;
+		robj = 18;
+	}
+	else if (rHero == robj && cHero == cobj && cobj == 20 && robj == 18)
+	{
+		cobj = 29;
+		robj = 30;
+	}
+	else if (rHero == robj && cHero == cobj && cobj == 29 && robj == 30)
+	{
+		cobj = 30;
+		robj = 30;
+		t = 0;
+		return t;
+	}
+}
+//Move Enemies
+void MoveEnmy_1(int& cEnmy, int& dir)
 {
 	if (dir == 1)
 	{
 		cEnmy++;
-		if (cEnmy == 80 - 1)
-		{
-			dir = -1;
-		}
-	}
-	if (dir == -1)
-	{
-		cEnmy--;
-		if (cEnmy == 0 + 1)
-		{
-			dir = 1;
-		}
-	}
-}
-void MoveEnmy_2(int& rEnmy, int& cEnmy, int& dir)
-{
-	if (dir == 1)
-	{
-		rEnmy--;
-		if (rEnmy == 2 )
+		if (cEnmy == 32)
 		{
 			dir = 2;
 		}
@@ -537,34 +352,161 @@ void MoveEnmy_2(int& rEnmy, int& cEnmy, int& dir)
 	if (dir == 2)
 	{
 		cEnmy--;
-		if (cEnmy == 15)
-		{
-			dir = 3;
-		}
-	}
-	if (dir == 3)
-	{
-		rEnmy++;
-		if (rEnmy == 15)
-		{
-			dir = 4;
-		}
-	}
-	if (dir == 4)
-	{
-		cEnmy++;
-		if (cEnmy == 65)
+		if (cEnmy == 13)
 		{
 			dir = 1;
 		}
 	}
 }
-void MoveHero_1(int& rHero, int& cHero, char ch)
+void MoveEnmy_2(int& rEnmy, int& dir)
 {
-	if (ch == 'w')
+	if (dir == 1)
+	{
+		rEnmy--;
+		if (rEnmy == 10)
+		{
+			dir = 2;
+		}
+	}
+	if (dir == 2)
+	{
+		rEnmy++;
+		if (rEnmy == 18)
+		{
+			dir = 1;
+		}
+	}
+}
+void MoveEnmy_3(int& cEnmy, int& dir)
+{
+	if (dir == 1)
+	{
+		cEnmy++;
+		if (cEnmy == 15)
+		{
+			dir = 2;
+		}
+	}
+	if (dir == 2)
+	{
+		cEnmy--;
+		if (cEnmy == 2)
+		{
+			dir = 1;
+		}
+	}
+}
+void MoveEnmy_4(int& rEnmy, int& dir)
+{
+	if (dir == 1)
+	{
+		rEnmy--;
+		if (rEnmy == 13)
+		{
+			dir = 2;
+		}
+	}
+	if (dir == 2)
+	{
+		rEnmy++;
+		if (rEnmy == 20)
+		{
+			dir = 1;
+		}
+	}
+}	
+void MoveEnmy_5(int& cEnmy, int& dir)
+{
+	if (dir == 1)
+	{
+		cEnmy++;
+		if (cEnmy == 67)
+		{
+			dir = 2;
+		}
+	}
+	if (dir == 2)
+	{
+		cEnmy--;
+		if (cEnmy == 62)
+		{
+			dir = 1;
+		}
+	}
+}
+void MoveEnmy_6(int& cEnmy, int& dir)
+{
+	if (dir == 1)
+	{
+		cEnmy++;
+		if (cEnmy == 67)
+		{
+			dir = 2;
+		}
+	}
+	if (dir == 2)
+	{
+		cEnmy--;
+		if (cEnmy == 62)
+		{
+			dir = 1;
+		}
+	}
+}
+//Move Hero
+int jmpr(int& rHero, int& cHero, int& j, int& t, int& rHero2, int& cHero2)
+{
+	if (t == 0)
+	{
+		rHero += 2;
+		cHero++;
+	}
+	else if (t == 1)
+	{
+		rHero2 += 2;
+		cHero2++;
+	}
+	j = 0;
+	return j;
+}
+int jmpl(int& rHero, int& cHero, int& j, int& t, int& rHero2, int& cHero2)
+{
+	if (t == 0)
+	{
+		rHero += 2;
+		cHero--;
+	}
+	else if (t == 1)
+	{
+		rHero2 += 2;
+		cHero2--;
+	}
+	j = 0;
+	return j;
+}
+int Grav(int& rHero, int& cHero, int& j, unsigned char X[][120])
+{
+	if (X[rHero + 1][cHero] == 32)
+	{
+		j = 0;
+		return j;
+	}
+	else if (X[rHero + 1][cHero] != 205)
+	{
+		rHero++;
+		j = 0;
+		return j;
+	}
+}
+void Ladder(int& rHero, int& cHero, unsigned char X[][120])
+{
+	if (X[rHero + 1][cHero] == 178)
 	{
 		rHero--;
 	}
+}
+int MoveHero_1(int& rHero, int& cHero, char ch, unsigned char X[][120], int& robj, int& cobj, int& t, int& j, int& cs, int& ck, int& hfr, int& hfl)
+{
 	if (ch == 's')
 	{
 		rHero++;
@@ -577,39 +519,201 @@ void MoveHero_1(int& rHero, int& cHero, char ch)
 	{
 		cHero++;
 	}
+	if (ch == 'w')
+	{
+		rHero--;
+	}
+	if (ch == 'l')
+	{
+		rHero -= 2;
+		cHero++;
+		j = 1;
+		return j;
+	}
+	if (ch == 'k')
+	{
+		rHero -= 2;
+		cHero--;
+		j = 2;
+		return j;
+	}
+	if (cHero > hfr)
+	{
+		if (ck < 120)
+		{
+			ck++;
+			cs++;
+		}
+		hfr++;
+		hfl = hfr - 1;
+		return cs, ck, hfr, hfl;
+	}
+	if (cHero < hfl)
+	{
+		if (cs > 0)
+		{
+			cs--;
+			ck--;
+		}
+		else if (cs == 0)
+		{
+			hfr = 40;
+		}
+		hfl--;
+		hfr--;
+		return cs, ck, hfr, hfl;
+	}
 }
+int MoveHero_2(int& rHero2, int& cHero2, char ch, unsigned char X[][120], int& robj, int& cobj, int& t, int& j)
+{
+	if (ch == 's')
+	{
+		rHero2++;
+	}
+	if (ch == 'a')
+	{
+		cHero2--;
+	}
+	if (ch == 'd')
+	{
+		cHero2++;
+	}
+	if (ch == 'w')
+	{
+		rHero2--;
+	}
+	if (ch == 'l')
+	{
+		rHero2 -= 2;
+		cHero2++;
+		j = 1;
+		return j;
+	}
+	if (ch == 'k')
+	{
+		rHero2 -= 2;
+		cHero2--;
+		j = 2;
+		return j;
+	}
+}
+//Main
 void main()
 {
-	unsigned char X[24][80];
-	int rEnmy1 = 5;
+	// Char
+	unsigned char X[48][120];
+	int cs = 0;
+	int ck = 80;
+	int hfr = ck / 2;
+	int hfl = 0;
+
+	//Elevator
+	int rEl = 22;
+	int cEl = 46;
+
+	//Enemy1
+	int rEnmy1 = 21;
 	int cEnmy1 = 20;
 	int dirEnmy_1 = 1;
-	int rEnmy2 = 15;
-	int cEnmy2 = 65;
-	int dirEnmy_2 = 1;
-	int rHero = 20;
+
+	//Enemy 2
+	int rEnmy2 = 16;
+	int cEnmy2 = 40;
+	int dirEnmy_2 = 2;
+
+	//Enemy 3
+	int rEnmy3 = 8;
+	int cEnmy3 = 8;
+	int dirEnmy_3 = 1;
+
+	//Enemy 4
+	int rEnmy4 = 17;
+	int cEnmy4 = 55;
+	int dirEnmy_4 = 1;
+
+	//Enemy 5
+	int rEnmy5 = 7;
+	int cEnmy5 = 67;
+	int dirEnmy_5 = 2;
+
+	//Enemy 6
+	int rEnmy6 = 12;
+	int cEnmy6 = 67;
+	int dirEnmy_6 = 2;
+
+	//Hero
+	int rHero = 19;
 	int cHero = 4;
+	int rHero2 = 32;
+	int cHero2 = 19;
+
+	//Object
 	int robj = 3;
 	int cobj = 70;
-	int x = 48;
-	int y=48;
-	int f = 0;
+	int t = 0;
+	int j = 0;
+
 	while (1)
 	{
 		while (!_kbhit())
 		{
-			
 			Lo7aFania(X);
-			SetEnmy_1(X, rEnmy1, cEnmy1);
-			SetEnmy_2(X, rEnmy2, cEnmy2);
-			MoveEnmy_1(rEnmy1, cEnmy1, dirEnmy_1);
-			MoveEnmy_2(rEnmy2, cEnmy2, dirEnmy_2);
-			SetObj(X, robj, cobj);
-			SetHero_1(X, rHero, cHero);
-			Disp(X);
+			SetLad(X);
+			SetEl1(X, rHero, cHero, t, rEl, cEl);
+
+			//SetEnemy
+			SetEnmy_1(X, rEnmy1, cEnmy1, rHero, cHero);
+			//SetEnmy_2(X, rEnmy2, cEnmy2, rHero, cHero);
+			//SetEnmy_3(X, rEnmy3, cEnmy3, rHero, cHero);
+			//SetEnmy_4(X, rEnmy4, cEnmy4, rHero, cHero);
+			//SetEnmy_5(X, rEnmy5, cEnmy5, rHero, cHero);
+			//SetEnmy_6(X, rEnmy6, cEnmy6, rHero, cHero);
+
+			//MoveEnemy
+			//MoveEnmy_1(cEnmy1, dirEnmy_1);
+			//MoveEnmy_2(rEnmy2, dirEnmy_2);
+			//MoveEnmy_3(cEnmy3, dirEnmy_3);
+			//MoveEnmy_4(rEnmy4, dirEnmy_4);
+			//MoveEnmy_5(cEnmy5, dirEnmy_5);
+			//MoveEnmy_6(cEnmy6, dirEnmy_6);
+
+			//Object
+			SetObj(X, robj, cobj, rHero, cHero, t);
+
+			//Score
+			SetScr(X, cobj);
+
+			if (t == 0)
+			{
+				SetHero_1(X, rHero, cHero);
+				Disp(X, cs, ck);
+			}
+			else if(t == 1)
+			{
+				SetHero_2(X, rHero2, cHero2);
+				Disp_2(X);
+			}
+
+			if (j == 1)
+			{
+				//jmpr(rHero, cHero, j, t, rHero2, cHero2);
+			}
+			if (j == 2)
+			{
+				//jmpl(rHero, cHero, j, t, rHero2, cHero2);
+			}
+			//Grav(rHero, cHero, j, X);
+			Ladder(rHero, cHero, X);
 		}
-		char ch = _getch();
-		MoveHero_1(rHero, cHero, ch, x, y, f, X, robj, cobj);
+		if (t == 0)
+		{
+			char ch = _getch();
+			MoveHero_1(rHero, cHero, ch, X, robj, cobj, t, j, cs, ck, hfr, hfl);
+		}
+		else if (t == 1)
+		{
+			char ch = _getch();
+			MoveHero_2(rHero2, cHero2, ch, X, robj, cobj, t, j);
+		}
 	}
-	
 }
